@@ -4,7 +4,7 @@ Este repositorio reúne mis apuntes personales de matemática, ejercicios desarr
 
 ## Contenido
 
-- Álgebra
+- [Estructuras Algebraicas](estructuras-algebraicas/)
 - Análisis Real
 - Ecuaciones Diferenciales Ordinarias
 - Topología

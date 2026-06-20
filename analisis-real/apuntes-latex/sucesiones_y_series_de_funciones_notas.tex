@@ -1,0 +1,1650 @@
+\documentclass[11pt,a4paper,openany]{book}
+
+%===========================================================
+% IDIOMA Y CODIFICACIÓN
+%===========================================================
+\usepackage[spanish,es-noquoting]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+%===========================================================
+% TIPOGRAFÍA
+%===========================================================
+\usepackage{lmodern}
+\usepackage{microtype}
+
+%===========================================================
+% GEOMETRÍA DE PÁGINA
+%===========================================================
+\usepackage{geometry}
+\geometry{
+    top=2.7cm,
+    bottom=2.7cm,
+    left=3cm,
+    right=3cm
+}
+
+%===========================================================
+% MATEMÁTICA
+%===========================================================
+\usepackage{amsmath, amssymb, amsthm, mathtools}
+\usepackage{mathrsfs}
+
+%===========================================================
+% GRÁFICOS
+%===========================================================
+\usepackage{tikz}
+\usetikzlibrary{
+    arrows.meta,
+    positioning,
+    calc,
+    patterns,
+    decorations.pathreplacing
+}
+
+%===========================================================
+% COLORES
+%===========================================================
+\usepackage{xcolor}
+
+\definecolor{deepblue}{RGB}{18,45,105}
+\definecolor{softyellow}{RGB}{248,236,170}
+\definecolor{theoremgray}{RGB}{235,235,235}
+\definecolor{linegray}{RGB}{150,150,150}
+
+%===========================================================
+% HIPERVÍNCULOS
+%===========================================================
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=deepblue,
+    citecolor=deepblue,
+    urlcolor=deepblue
+}
+
+%===========================================================
+% LISTAS
+%===========================================================
+\usepackage{enumitem}
+\setlist[itemize]{topsep=4pt,itemsep=2pt}
+\setlist[enumerate]{topsep=4pt,itemsep=2pt}
+
+%===========================================================
+% CAJAS TIPO LIBRO
+%===========================================================
+\usepackage[most]{tcolorbox}
+
+\newtcolorbox{grisplano}{
+  colback=gray!18,
+  colframe=gray!18,
+  boxrule=0pt,
+  arc=0mm,
+  left=10pt,
+  right=10pt,
+  top=8pt,
+  bottom=8pt,
+  before skip=10pt,
+  after skip=10pt
+}
+
+\newtcolorbox{bloquelibro}{
+  colback=gray!12,
+  colframe=gray!45,
+  boxrule=0.4pt,
+  arc=0mm,
+  left=10pt,
+  right=10pt,
+  top=8pt,
+  bottom=8pt,
+  before skip=10pt,
+  after skip=10pt
+}
+
+\newtcolorbox{comentariolibro}{
+  colback=softyellow!45,
+  colframe=softyellow!80!black,
+  boxrule=0.4pt,
+  arc=0mm,
+  left=10pt,
+  right=10pt,
+  top=7pt,
+  bottom=7pt,
+  before skip=10pt,
+  after skip=10pt
+}
+
+%===========================================================
+% ENTORNOS MATEMÁTICOS
+%===========================================================
+\theoremstyle{definition}
+\newtheorem{definicion}{Definición}[chapter]
+\newtheorem{ejemplo}{Ejemplo}[chapter]
+
+\theoremstyle{plain}
+\newtheorem{teorema}{Teorema}[chapter]
+\newtheorem{proposicion}{Proposición}[chapter]
+\newtheorem{lema}{Lema}[chapter]
+\newtheorem{corolario}{Corolario}[chapter]
+
+\theoremstyle{remark}
+\newtheorem*{observacionthm}{Observación}
+
+%===========================================================
+% ENTORNOS PERSONALIZADOS
+%===========================================================
+\renewenvironment{proof}[1][\textbf{Demostración.}]{%
+  \par\noindent #1\ \normalfont
+}{\hfill$\square$\par\medskip}
+
+\newenvironment{observacion}
+{\par\medskip\noindent\textbf{Observación. }\normalfont}
+{\par\medskip}
+
+\newenvironment{notacion}
+{\par\medskip\noindent\textbf{Notación. }\normalfont}
+{\par\medskip}
+
+\newenvironment{idea}
+{\begin{comentariolibro}\textbf{Idea de la demostración. }\normalfont}
+{\end{comentariolibro}}
+
+%===========================================================
+% COMANDOS ÚTILES
+%===========================================================
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+
+\newcommand{\eps}{\varepsilon}
+\newcommand{\ds}{\displaystyle}
+
+% Ínfimo y supremo en español
+\DeclareMathOperator{\sen}{sen}
+\DeclareMathOperator{\arcsen}{arcsen}
+\DeclareMathOperator{\Dom}{Dom}
+
+% Integral inferior y superior
+\newcommand{\intinf}[2]{\underline{\int_{#1}^{#2}}}
+\newcommand{\intsup}[2]{\overline{\int_{#1}^{#2}}}
+
+%===========================================================
+% ESTILO DE CAPÍTULOS Y SECCIONES
+%===========================================================
+\usepackage{titlesec}
+
+\titleformat{\chapter}[display]
+  {\normalfont\huge\bfseries\color{deepblue}}
+  {\chaptername\ \thechapter}
+  {10pt}
+  {\Huge}
+
+\titleformat{\section}
+  {\normalfont\Large\bfseries\color{deepblue}}
+  {\thesection}
+  {1em}
+  {}
+
+\titleformat{\subsection}
+  {\normalfont\large\bfseries\color{deepblue}}
+  {\thesubsection}
+  {1em}
+  {}
+
+%===========================================================
+% DATOS DEL DOCUMENTO
+%===========================================================
+\title{Análisis Real\\\large Sucesiones y series de funciones reales}
+\author{Miguel Angel Tintaya Condori}
+\date{2026}
+
+%===========================================================
+% INICIO DEL DOCUMENTO
+%===========================================================
+\begin{document}
+
+\maketitle
+\tableofcontents
+%===========================================================
+\chapter{Sucesiones y series de funciones}
+%===========================================================
+
+\section{Convergencia puntual y convergencia uniforme}
+
+En capítulos anteriores estudiamos sucesiones de números reales. Ahora
+estudiaremos sucesiones cuyos términos ya no son números, sino funciones.
+
+La idea general es la siguiente: muchas veces queremos construir una función
+$f$ con ciertas propiedades, pero lo que obtenemos primero es una sucesión de
+funciones
+\[
+    f_1,\ f_2,\ \ldots,\ f_n,\ \ldots
+\]
+que se acercan cada vez más a una función límite. El problema central será
+entender en qué sentido se acercan.
+
+\begin{observacion}
+Para sucesiones numéricas existe una sola noción usual de convergencia.
+Para sucesiones de funciones existen varias. Las dos más importantes para
+nuestro curso serán:
+
+\begin{itemize}
+    \item convergencia puntual;
+    \item convergencia uniforme.
+\end{itemize}
+
+La convergencia uniforme será más fuerte y será la que conserve propiedades
+como continuidad, integrabilidad y derivabilidad bajo ciertas hipótesis.
+\end{observacion}
+
+%-----------------------------------------------------------
+\subsection{Convergencia puntual}
+%-----------------------------------------------------------
+
+\begin{grisplano}
+\begin{definicion}[Convergencia puntual]
+Sea $X\subset \R$ y sea
+\[
+    (f_n)_{n\in\N},\qquad f_n:X\to\R,
+\]
+una sucesión de funciones. Decimos que $(f_n)$ \emph{converge puntualmente}
+a una función $f:X\to\R$ si, para cada $x\in X$, la sucesión numérica
+\[
+    \bigl(f_n(x)\bigr)_{n\in\N}
+\]
+converge a $f(x)$.
+
+Es decir,
+\[
+    f_n\to f \text{ puntualmente en }X
+\]
+si y solo si
+\[
+    \forall x\in X,\qquad
+    \lim_{n\to\infty} f_n(x)=f(x).
+\]
+\end{definicion}
+\end{grisplano}
+
+En términos de $\varepsilon$, esto significa que
+\[
+    \forall x\in X,\ \forall \varepsilon>0,\ \exists n_0\in\N
+\]
+tal que
+\[
+    n\geq n_0
+    \quad\Longrightarrow\quad
+    |f_n(x)-f(x)|<\varepsilon.
+\]
+
+\begin{observacion}
+En la convergencia puntual, el entero $n_0$ puede depender de dos cosas:
+
+\[
+    n_0=n_0(\varepsilon,x).
+\]
+
+Es decir, para cada punto $x$ podemos necesitar un tiempo distinto para que
+$f_n(x)$ se acerque a $f(x)$.
+\end{observacion}
+
+\begin{observacion}
+Geométricamente, fijar $x\in X$ significa mirar una recta vertical. Sobre esa
+recta tenemos los puntos
+\[
+    (x,f_1(x)),\ (x,f_2(x)),\ldots,\ (x,f_n(x)),\ldots
+\]
+y la convergencia puntual dice que estos puntos se acercan a
+\[
+    (x,f(x)).
+\]
+\end{observacion}
+
+\begin{center}
+\begin{tikzpicture}[scale=1.1]
+    % axes
+    \draw[->] (-0.2,0) -- (5.2,0) node[right] {$x$};
+    \draw[->] (0,-0.2) -- (0,3.2) node[above] {$y$};
+
+    % vertical line
+    \draw[dashed,gray] (2.7,0) -- (2.7,3);
+
+    % points
+    \fill[blue] (2.7,2.5) circle (1.7pt) node[right] {$f_1(x)$};
+    \fill[blue] (2.7,2.1) circle (1.7pt) node[right] {$f_2(x)$};
+    \fill[blue] (2.7,1.75) circle (1.7pt) node[right] {$f_3(x)$};
+    \fill[blue] (2.7,1.45) circle (1.7pt) node[right] {$f_n(x)$};
+
+    \fill[red] (2.7,1.1) circle (2pt) node[right] {$f(x)$};
+
+    \node[below] at (2.7,0) {$x$};
+\end{tikzpicture}
+\end{center}
+
+\begin{ejemplo}
+Sea
+\[
+    f_n:\R\to\R,\qquad f_n(x)=\frac{x}{n}.
+\]
+Entonces
+\[
+    f_n\to 0
+\]
+puntualmente en $\R$.
+
+En efecto, fijado $x\in\R$, tenemos
+\[
+    \lim_{n\to\infty} f_n(x)
+    =
+    \lim_{n\to\infty}\frac{x}{n}
+    =
+    0.
+\]
+Por tanto, la función límite es
+\[
+    f(x)=0,\qquad x\in\R.
+\]
+\end{ejemplo}
+
+%-----------------------------------------------------------
+\subsection{Convergencia uniforme}
+%-----------------------------------------------------------
+
+\begin{grisplano}
+\begin{definicion}[Convergencia uniforme]
+Sea $X\subset\R$ y sea $(f_n)_{n\in\N}$ una sucesión de funciones
+\[
+    f_n:X\to\R.
+\]
+Decimos que $(f_n)$ \emph{converge uniformemente} a $f:X\to\R$ en $X$ si
+\[
+    \forall \varepsilon>0,\ \exists n_0\in\N
+\]
+tal que
+\[
+    n\geq n_0
+    \quad\Longrightarrow\quad
+    |f_n(x)-f(x)|<\varepsilon
+    \quad\text{para todo }x\in X.
+\]
+\end{definicion}
+\end{grisplano}
+
+\begin{observacion}
+La diferencia con la convergencia puntual está en el orden de los cuantificadores.
+
+En la convergencia puntual:
+\[
+    \forall x\in X,\ \forall\varepsilon>0,\ \exists n_0=n_0(\varepsilon,x).
+\]
+
+En la convergencia uniforme:
+\[
+    \forall\varepsilon>0,\ \exists n_0=n_0(\varepsilon),\ \forall x\in X.
+\]
+
+En la convergencia uniforme, el mismo $n_0$ sirve para todos los puntos de $X$.
+\end{observacion}
+
+\begin{observacion}
+Geométricamente, dado $\varepsilon>0$, consideramos la banda alrededor del
+gráfico de $f$:
+\[
+    B_\varepsilon(f)
+    =
+    \{(x,y)\in X\times\R:
+    f(x)-\varepsilon<y<f(x)+\varepsilon\}.
+\]
+Decir que $f_n\to f$ uniformemente significa que, a partir de cierto $n_0$,
+todos los gráficos de $f_n$ quedan completamente dentro de esa banda.
+\end{observacion}
+
+\begin{center}
+\begin{tikzpicture}[scale=1.05]
+    \draw[->] (-0.2,0) -- (6.2,0) node[right] {$x$};
+    \draw[->] (0,-0.2) -- (0,3.7) node[above] {$y$};
+
+    % band
+    \fill[gray!20,domain=0.5:5.8,smooth,variable=\x]
+        plot ({\x},{1.8+0.35*sin(90*\x)+0.45})
+        -- plot[domain=5.8:0.5] ({\x},{1.8+0.35*sin(90*\x)-0.45})
+        -- cycle;
+
+    % f
+    \draw[blue,thick,domain=0.5:5.8,smooth,variable=\x]
+        plot ({\x},{1.8+0.35*sin(90*\x)})
+        node[right] {$f$};
+
+    % epsilon lines
+    \draw[gray,dashed,domain=0.5:5.8,smooth,variable=\x]
+        plot ({\x},{1.8+0.35*sin(90*\x)+0.45});
+    \draw[gray,dashed,domain=0.5:5.8,smooth,variable=\x]
+        plot ({\x},{1.8+0.35*sin(90*\x)-0.45});
+
+    % fn
+    \draw[red,thick,domain=0.5:5.8,smooth,variable=\x]
+        plot ({\x},{1.8+0.35*sin(90*\x)+0.2*cos(150*\x)})
+        node[right] {$f_n$};
+
+    \node at (4.9,3.1) {$+\varepsilon$};
+    \node at (4.9,0.8) {$-\varepsilon$};
+\end{tikzpicture}
+\end{center}
+
+%-----------------------------------------------------------
+\subsection{Primeros ejemplos}
+%-----------------------------------------------------------
+
+\begin{ejemplo}
+La sucesión
+\[
+    f_n:\R\to\R,\qquad f_n(x)=\frac{x}{n},
+\]
+converge puntualmente a la función nula, pero no converge uniformemente en
+$\R$.
+
+\begin{proof}
+Ya sabemos que, para cada $x\in\R$,
+\[
+    \lim_{n\to\infty}\frac{x}{n}=0.
+\]
+Luego $f_n\to 0$ puntualmente en $\R$.
+
+Veamos que la convergencia no es uniforme. Si fuera uniforme, para
+$\varepsilon=1$ existiría $n_0\in\N$ tal que
+\[
+    n\geq n_0
+    \quad\Longrightarrow\quad
+    \left|\frac{x}{n}\right|<1
+    \quad\text{para todo }x\in\R.
+\]
+Tomando $n=n_0$ y $x=2n_0$, obtenemos
+\[
+    \left|\frac{x}{n_0}\right|
+    =
+    \left|\frac{2n_0}{n_0}\right|
+    =
+    2,
+\]
+lo cual contradice la desigualdad anterior. Por tanto, la convergencia no es
+uniforme en $\R$.
+\end{proof}
+\end{ejemplo}
+
+\begin{observacion}
+El problema anterior aparece porque $\R$ no es acotado. En cambio, si
+$X\subset\R$ es acotado y existe $c>0$ tal que
+\[
+    |x|\leq c
+    \qquad \text{para todo }x\in X,
+\]
+entonces
+\[
+    \frac{x}{n}\to 0
+\]
+uniformemente en $X$.
+
+En efecto, dado $\varepsilon>0$, tomamos $n_0\in\N$ tal que
+\[
+    n_0>\frac{c}{\varepsilon}.
+\]
+Entonces, si $n\geq n_0$ y $x\in X$,
+\[
+    \left|\frac{x}{n}\right|
+    \leq \frac{c}{n}
+    \leq \frac{c}{n_0}
+    <\varepsilon.
+\]
+\end{observacion}
+
+\begin{ejemplo}
+Sea
+\[
+    f_n:[0,1]\to\R,\qquad f_n(x)=x^n.
+\]
+Entonces $(f_n)$ converge puntualmente a la función
+\[
+    f(x)=
+    \begin{cases}
+        0, & 0\leq x<1,\\
+        1, & x=1.
+    \end{cases}
+\]
+La convergencia no es uniforme en $[0,1]$.
+
+\begin{proof}
+Si $0\leq x<1$, entonces
+\[
+    \lim_{n\to\infty}x^n=0.
+\]
+Si $x=1$, entonces
+\[
+    \lim_{n\to\infty}1^n=1.
+\]
+Por tanto, la función límite puntual es
+\[
+    f(x)=
+    \begin{cases}
+        0, & 0\leq x<1,\\
+        1, & x=1.
+    \end{cases}
+\]
+
+Ahora probemos que la convergencia no es uniforme. Tomemos
+\[
+    \varepsilon=\frac12.
+\]
+Si la convergencia fuese uniforme, existiría $n_0\in\N$ tal que, para todo
+$n\geq n_0$ y todo $x\in[0,1]$,
+\[
+    |x^n-f(x)|<\frac12.
+\]
+Fijemos $n=n_0$. Como
+\[
+    \lim_{x\to 1^-}x^{n_0}=1,
+\]
+existe $x\in[0,1)$ suficientemente cercano a $1$ tal que
+\[
+    x^{n_0}>\frac12.
+\]
+Pero para ese $x$ se tiene $f(x)=0$, y entonces
+\[
+    |f_{n_0}(x)-f(x)|
+    =
+    |x^{n_0}-0|
+    =
+    x^{n_0}
+    >
+    \frac12.
+\]
+Esto contradice la convergencia uniforme.
+\end{proof}
+\end{ejemplo}
+
+\begin{center}
+\begin{tikzpicture}[scale=4]
+    \draw[->] (-0.05,0) -- (1.12,0) node[right] {$x$};
+    \draw[->] (0,-0.05) -- (0,1.15) node[above] {$y$};
+
+    \draw[domain=0:1,smooth,variable=\x,blue,thick] plot ({\x},{\x});
+    \draw[domain=0:1,smooth,variable=\x,red,thick] plot ({\x},{\x*\x});
+    \draw[domain=0:1,smooth,variable=\x,green!60!black,thick] plot ({\x},{\x*\x*\x});
+    \draw[domain=0:1,smooth,variable=\x,purple,thick] plot ({\x},{\x*\x*\x*\x});
+
+    \node[blue] at (0.78,0.82) {$x$};
+    \node[red] at (0.80,0.58) {$x^2$};
+    \node[green!60!black] at (0.82,0.43) {$x^3$};
+    \node[purple] at (0.83,0.30) {$x^4$};
+
+    \node[below] at (1,0) {$1$};
+    \node[left] at (0,1) {$1$};
+\end{tikzpicture}
+\end{center}
+
+\begin{observacion}
+Aunque $f_n(x)=x^n$ no converge uniformemente en $[0,1]$, sí converge
+uniformemente en todo intervalo
+\[
+    [0,1-\delta],
+    \qquad 0<\delta<1.
+\]
+En efecto, si $0\leq x\leq 1-\delta$, entonces
+\[
+    0\leq x^n\leq (1-\delta)^n,
+\]
+y como $0<1-\delta<1$, se tiene
+\[
+    (1-\delta)^n\to 0.
+\]
+Así,
+\[
+    \sup_{x\in[0,1-\delta]}|x^n-0|
+    \leq (1-\delta)^n\to 0.
+\]
+\end{observacion}
+
+\begin{ejemplo}
+Sea
+\[
+    f_n:[0,1]\to\R,\qquad f_n(x)=x^n(1-x^n).
+\]
+Entonces $f_n\to 0$ puntualmente en $[0,1]$, pero la convergencia no es
+uniforme.
+
+\begin{proof}
+Si $0\leq x<1$, entonces $x^n\to 0$, de donde
+\[
+    x^n(1-x^n)\to 0.
+\]
+Si $x=1$, entonces
+\[
+    f_n(1)=1^n(1-1^n)=0.
+\]
+Por tanto, $f_n\to 0$ puntualmente en $[0,1]$.
+
+Veamos que la convergencia no es uniforme. Para cada $n$, tomamos
+\[
+    x_n=\sqrt[n]{\frac12}.
+\]
+Entonces $x_n\in[0,1]$ y
+\[
+    x_n^n=\frac12.
+\]
+Por tanto,
+\[
+    f_n(x_n)
+    =
+    x_n^n(1-x_n^n)
+    =
+    \frac12\left(1-\frac12\right)
+    =
+    \frac14.
+\]
+Así,
+\[
+    \sup_{x\in[0,1]}|f_n(x)-0|
+    \geq
+    |f_n(x_n)|
+    =
+    \frac14.
+\]
+Luego la distancia uniforme entre $f_n$ y $0$ no tiende a cero. Por tanto,
+$f_n$ no converge uniformemente a $0$.
+\end{proof}
+\end{ejemplo}
+
+%-----------------------------------------------------------
+\section{Propiedades de la convergencia uniforme}
+%-----------------------------------------------------------
+
+\subsection{La convergencia uniforme conserva la continuidad}
+
+\begin{grisplano}
+\begin{teorema}[Límite uniforme de funciones continuas]
+Sea $(f_n)$ una sucesión de funciones
+\[
+    f_n:X\to\R.
+\]
+Supongamos que
+\[
+    f_n\to f
+\]
+uniformemente en $X$. Si cada $f_n$ es continua en un punto $a\in X$, entonces
+$f$ es continua en $a$.
+\end{teorema}
+\end{grisplano}
+
+\begin{idea}
+La prueba usa el truco clásico de sumar y restar $f_n(x)$ y $f_n(a)$:
+\[
+    f(x)-f(a)
+    =
+    [f(x)-f_n(x)]
+    +
+    [f_n(x)-f_n(a)]
+    +
+    [f_n(a)-f(a)].
+\]
+Los términos de los extremos se controlan por convergencia uniforme. El término
+del centro se controla por continuidad de $f_n$.
+\end{idea}
+
+\begin{proof}
+Sea $\varepsilon>0$. Como $f_n\to f$ uniformemente en $X$, existe
+$n_0\in\N$ tal que
+\[
+    n\geq n_0
+    \quad\Longrightarrow\quad
+    |f_n(x)-f(x)|<\frac{\varepsilon}{3}
+    \quad\text{para todo }x\in X.
+\]
+Fijemos un índice $n\geq n_0$. Como $f_n$ es continua en $a$, existe
+$\delta>0$ tal que
+\[
+    x\in X,\ |x-a|<\delta
+    \quad\Longrightarrow\quad
+    |f_n(x)-f_n(a)|<\frac{\varepsilon}{3}.
+\]
+Entonces, si $x\in X$ y $|x-a|<\delta$, tenemos
+\[
+\begin{aligned}
+    |f(x)-f(a)|
+    &\leq |f(x)-f_n(x)|
+        +|f_n(x)-f_n(a)|
+        +|f_n(a)-f(a)|  \\
+    &< \frac{\varepsilon}{3}
+        +\frac{\varepsilon}{3}
+        +\frac{\varepsilon}{3}
+    =\varepsilon.
+\end{aligned}
+\]
+Luego $f$ es continua en $a$.
+\end{proof}
+
+\begin{corolario}
+Si $f_n:X\to\R$ son continuas en todo $X$ y $f_n\to f$ uniformemente en $X$,
+entonces $f$ es continua en $X$.
+\end{corolario}
+
+\begin{observacion}
+Este resultado explica por qué la convergencia de
+\[
+    f_n(x)=x^n
+\]
+a
+\[
+    f(x)=
+    \begin{cases}
+        0, & 0\leq x<1,\\
+        1, & x=1,
+    \end{cases}
+\]
+no puede ser uniforme en $[0,1]$: cada $f_n$ es continua, pero el límite puntual
+$f$ no es continuo.
+\end{observacion}
+
+%-----------------------------------------------------------
+\subsection{Convergencia monótona de funciones}
+%-----------------------------------------------------------
+
+\begin{grisplano}
+\begin{definicion}[Convergencia monótona]
+Sea $X\subset\R$ y sea $(f_n)$ una sucesión de funciones
+\[
+    f_n:X\to\R.
+\]
+Decimos que $f_n\to f$ \emph{monótonamente} si, para cada $x\in X$, la sucesión
+numérica
+\[
+    (f_n(x))_{n\in\N}
+\]
+es monótona y converge a $f(x)$.
+\end{definicion}
+\end{grisplano}
+
+\begin{observacion}
+Por ejemplo, si para todo $x\in X$ se tiene
+\[
+    f_1(x)\leq f_2(x)\leq \cdots \leq f_n(x)\leq \cdots
+\]
+y
+\[
+    f_n(x)\to f(x),
+\]
+entonces
+\[
+    f_n\to f
+\]
+monótonamente.
+
+También puede ocurrir el caso decreciente:
+\[
+    f_1(x)\geq f_2(x)\geq \cdots \geq f_n(x)\geq \cdots.
+\]
+\end{observacion}
+
+\begin{observacion}
+Si $f_n\to f$ monótonamente, entonces para todo $x\in X$,
+\[
+    |f_{n+1}(x)-f(x)|
+    \leq
+    |f_n(x)-f(x)|.
+\]
+Es decir, el error puntual disminuye cuando aumenta $n$.
+\end{observacion}
+
+%-----------------------------------------------------------
+\subsection{Teorema de Dini}
+%-----------------------------------------------------------
+
+\begin{grisplano}
+\begin{teorema}[Dini]
+Sea $X\subset\R$ compacto. Sea
+\[
+    (f_n)_{n\in\N},\qquad f_n:X\to\R,
+\]
+una sucesión de funciones continuas. Supongamos que
+\[
+    f_n\to f
+\]
+monótonamente en $X$ y que $f:X\to\R$ es continua. Entonces
+\[
+    f_n\to f
+\]
+uniformemente en $X$.
+\end{teorema}
+\end{grisplano}
+
+\begin{idea}
+Queremos probar que, dado $\varepsilon>0$, a partir de cierto índice ya no
+existe ningún punto $x\in X$ donde el error sea mayor o igual que
+$\varepsilon$.
+
+Para eso definimos los conjuntos malos:
+\[
+    K_n=\{x\in X:|f_n(x)-f(x)|\geq \varepsilon\}.
+\]
+Estos conjuntos son compactos, están encajados y su intersección es vacía.
+Por compacidad, alguno debe ser vacío.
+\end{idea}
+
+\begin{proof}
+Sea $\varepsilon>0$. Para cada $n\in\N$, definimos
+\[
+    K_n
+    =
+    \{x\in X: |f_n(x)-f(x)|\geq \varepsilon\}.
+\]
+
+Como $f_n$ y $f$ son continuas, la función
+\[
+    x\mapsto |f_n(x)-f(x)|
+\]
+es continua. Entonces $K_n$ es cerrado en $X$. Como $X$ es compacto, concluimos
+que cada $K_n$ es compacto.
+
+Además, por la convergencia monótona, el error
+\[
+    |f_n(x)-f(x)|
+\]
+disminuye al crecer $n$. Por tanto,
+\[
+    K_1\supset K_2\supset K_3\supset \cdots.
+\]
+
+Ahora veamos que
+\[
+    \bigcap_{n=1}^{\infty}K_n=\varnothing.
+\]
+En efecto, si existiera $p\in\bigcap_{n=1}^{\infty}K_n$, entonces
+\[
+    |f_n(p)-f(p)|\geq \varepsilon
+    \qquad \text{para todo }n\in\N.
+\]
+Pero esto contradice que
+\[
+    f_n(p)\to f(p).
+\]
+Por tanto,
+\[
+    \bigcap_{n=1}^{\infty}K_n=\varnothing.
+\]
+
+Como $(K_n)$ es una sucesión decreciente de compactos no vacíos solo podría
+tener intersección no vacía. Luego, al tener intersección vacía, necesariamente
+existe $n_0\in\N$ tal que
+\[
+    K_{n_0}=\varnothing.
+\]
+Como la sucesión es decreciente,
+\[
+    K_n=\varnothing
+    \qquad \text{para todo }n\geq n_0.
+\]
+Esto significa que, si $n\geq n_0$, entonces no existe $x\in X$ tal que
+\[
+    |f_n(x)-f(x)|\geq \varepsilon.
+\]
+Por tanto,
+\[
+    |f_n(x)-f(x)|<\varepsilon
+    \qquad \text{para todo }x\in X.
+\]
+Así, $f_n\to f$ uniformemente en $X$.
+\end{proof}
+
+\begin{observacion}
+La compacidad de $X$ es esencial. Por ejemplo,
+\[
+    f_n:[0,1)\to\R,\qquad f_n(x)=x^n,
+\]
+converge monótonamente a $0$ en $[0,1)$, y el límite es continuo. Pero la
+convergencia no es uniforme porque $[0,1)$ no es compacto.
+\end{observacion}
+
+%-----------------------------------------------------------
+\section{Paso al límite bajo el signo integral}
+%-----------------------------------------------------------
+
+\begin{grisplano}
+\begin{teorema}[Paso al límite bajo el signo integral]
+Sea $(f_n)$ una sucesión de funciones integrables
+\[
+    f_n:[a,b]\to\R.
+\]
+Si
+\[
+    f_n\to f
+\]
+uniformemente en $[a,b]$, entonces $f$ es integrable y
+\[
+    \int_a^b f(x)\,dx
+    =
+    \lim_{n\to\infty}\int_a^b f_n(x)\,dx.
+\]
+Equivalentemente,
+\[
+    \lim_{n\to\infty}\int_a^b f_n(x)\,dx
+    =
+    \int_a^b\left(\lim_{n\to\infty}f_n(x)\right)\,dx.
+\]
+\end{teorema}
+\end{grisplano}
+
+\begin{idea}
+La prueba tiene dos partes.
+
+Primero probamos que $f$ es integrable. Como $f_n\to f$ uniformemente, para
+un índice fijo grande $m$, la función $f$ está muy cerca de $f_m$. Como $f_m$
+ya es integrable, existe una partición donde la suma de oscilaciones de $f_m$
+es pequeña. La cercanía uniforme permite transferir esa pequeña oscilación de
+$f_m$ hacia $f$.
+
+Luego probamos la igualdad de integrales usando
+\[
+    \left|\int_a^b f-\int_a^b f_n\right|
+    =
+    \left|\int_a^b(f-f_n)\right|
+    \leq
+    \int_a^b|f-f_n|.
+\]
+\end{idea}
+
+\begin{proof}
+Sea $\varepsilon>0$. Como $f_n\to f$ uniformemente en $[a,b]$, existe
+$n_0\in\N$ tal que
+\[
+    n\geq n_0
+    \quad\Longrightarrow\quad
+    |f_n(x)-f(x)|<\frac{\varepsilon}{4(b-a)}
+    \qquad\text{para todo }x\in[a,b].
+\]
+Fijemos un índice
+\[
+    m\geq n_0.
+\]
+Entonces
+\[
+    |f_m(x)-f(x)|<\frac{\varepsilon}{4(b-a)}
+    \qquad\text{para todo }x\in[a,b].
+\]
+
+Como $f_m$ es integrable, existe una partición
+\[
+    P=\{a=t_0<t_1<\cdots<t_r=b\}
+\]
+tal que
+\[
+    \sum_{i=1}^r \omega_i(f_m)(t_i-t_{i-1})
+    <
+    \frac{\varepsilon}{2},
+\]
+donde
+\[
+    \omega_i(f_m)
+    =
+    \sup_{x,y\in[t_{i-1},t_i]}
+    |f_m(x)-f_m(y)|
+\]
+es la oscilación de $f_m$ en el intervalo $[t_{i-1},t_i]$.
+
+Ahora estimemos la oscilación de $f$ en cada intervalo. Si
+$x,y\in[t_{i-1},t_i]$, entonces
+\[
+\begin{aligned}
+    |f(x)-f(y)|
+    &\leq |f(x)-f_m(x)|
+        +|f_m(x)-f_m(y)|
+        +|f_m(y)-f(y)|  \\
+    &<
+        \frac{\varepsilon}{4(b-a)}
+        +
+        \omega_i(f_m)
+        +
+        \frac{\varepsilon}{4(b-a)} \\
+    &=
+        \omega_i(f_m)
+        +
+        \frac{\varepsilon}{2(b-a)}.
+\end{aligned}
+\]
+Tomando supremo sobre $x,y\in[t_{i-1},t_i]$, obtenemos
+\[
+    \omega_i(f)
+    \leq
+    \omega_i(f_m)
+    +
+    \frac{\varepsilon}{2(b-a)}.
+\]
+Por tanto,
+\[
+\begin{aligned}
+    \sum_{i=1}^r \omega_i(f)(t_i-t_{i-1})
+    &\leq
+    \sum_{i=1}^r \omega_i(f_m)(t_i-t_{i-1})
+    +
+    \frac{\varepsilon}{2(b-a)}
+    \sum_{i=1}^r(t_i-t_{i-1}) \\
+    &<
+    \frac{\varepsilon}{2}
+    +
+    \frac{\varepsilon}{2(b-a)}(b-a) \\
+    &=
+    \varepsilon.
+\end{aligned}
+\]
+Por el criterio de integrabilidad mediante oscilaciones, $f$ es integrable.
+
+Ahora probemos la igualdad de integrales. Para $n\geq n_0$,
+\[
+\begin{aligned}
+    \left|
+    \int_a^b f(x)\,dx
+    -
+    \int_a^b f_n(x)\,dx
+    \right|
+    &=
+    \left|
+    \int_a^b (f(x)-f_n(x))\,dx
+    \right| \\
+    &\leq
+    \int_a^b |f(x)-f_n(x)|\,dx \\
+    &\leq
+    \int_a^b \frac{\varepsilon}{4(b-a)}\,dx \\
+    &=
+    \frac{\varepsilon}{4}.
+\end{aligned}
+\]
+Así,
+\[
+    \int_a^b f_n(x)\,dx
+    \to
+    \int_a^b f(x)\,dx.
+\]
+Luego
+\[
+    \lim_{n\to\infty}\int_a^b f_n(x)\,dx
+    =
+    \int_a^b f(x)\,dx.
+\]
+\end{proof}
+
+\begin{observacion}
+Si todas las $f_n$ son continuas, entonces la primera parte de la prueba se
+simplifica: por el teorema anterior, el límite uniforme $f$ es continuo; por
+tanto, $f$ es integrable.
+\end{observacion}
+
+\begin{ejemplo}
+La convergencia puntual no basta para pasar el límite dentro de la integral.
+
+Definamos
+\[
+    f_n:[0,1]\to\R,\qquad f_n(x)=n x^n(1-x^n).
+\]
+Entonces $f_n(x)\to 0$ puntualmente en $[0,1]$, pero
+\[
+    \lim_{n\to\infty}\int_0^1 f_n(x)\,dx
+    \neq
+    \int_0^1 0\,dx.
+\]
+
+En efecto, para $0\leq x<1$,
+\[
+    n x^n\to 0,
+\]
+y además $f_n(1)=0$. Luego $f_n\to 0$ puntualmente.
+
+Sin embargo,
+\[
+\begin{aligned}
+    \int_0^1 n x^n(1-x^n)\,dx
+    &=
+    n\int_0^1 x^n\,dx
+    -
+    n\int_0^1 x^{2n}\,dx \\
+    &=
+    n\cdot \frac{1}{n+1}
+    -
+    n\cdot \frac{1}{2n+1} \\
+    &=
+    \frac{n}{n+1}
+    -
+    \frac{n}{2n+1}.
+\end{aligned}
+\]
+Por tanto,
+\[
+    \lim_{n\to\infty}
+    \int_0^1 n x^n(1-x^n)\,dx
+    =
+    1-\frac12
+    =
+    \frac12.
+\]
+Pero
+\[
+    \int_0^1 0\,dx=0.
+\]
+\end{ejemplo}
+
+%-----------------------------------------------------------
+\section{Derivación término a término}
+%-----------------------------------------------------------
+
+\begin{grisplano}
+\begin{teorema}[Derivación término a término]
+Sea $(f_n)$ una sucesión de funciones de clase $C^1$ en $[a,b]$.
+Supongamos que:
+
+\begin{enumerate}
+    \item existe $c\in[a,b]$ tal que la sucesión numérica
+    \[
+        (f_n(c))_{n\in\N}
+    \]
+    converge;
+
+    \item las derivadas $f_n'$ convergen uniformemente en $[a,b]$ a una función
+    $g:[a,b]\to\R$.
+\end{enumerate}
+
+Entonces $(f_n)$ converge uniformemente en $[a,b]$ a una función $f$ de clase
+$C^1$, y
+\[
+    f'=g.
+\]
+En particular,
+\[
+    \left(\lim_{n\to\infty} f_n\right)'
+    =
+    \lim_{n\to\infty} f_n'.
+\]
+\end{teorema}
+\end{grisplano}
+
+\begin{idea}
+No basta pedir que $f_n\to f$ uniformemente para concluir que
+$f_n'\to f'$. Lo correcto es controlar las derivadas.
+
+La prueba usa el Teorema Fundamental del Cálculo:
+\[
+    f_n(x)=f_n(c)+\int_c^x f_n'(t)\,dt.
+\]
+Luego pasamos al límite. La convergencia de $f_n(c)$ da el valor inicial, y la
+convergencia uniforme de $f_n'$ permite pasar el límite dentro de la integral.
+\end{idea}
+
+\begin{proof}
+Como $(f_n(c))$ converge, existe
+\[
+    \alpha=\lim_{n\to\infty} f_n(c).
+\]
+Como $f_n'\to g$ uniformemente y cada $f_n'$ es continua, por el teorema del
+límite uniforme de funciones continuas, $g$ es continua.
+
+Para cada $n\in\N$ y cada $x\in[a,b]$, por el Teorema Fundamental del Cálculo,
+\[
+    f_n(x)
+    =
+    f_n(c)
+    +
+    \int_c^x f_n'(t)\,dt.
+\]
+Como $f_n'\to g$ uniformemente, por el teorema de paso al límite bajo la
+integral,
+\[
+    \lim_{n\to\infty}\int_c^x f_n'(t)\,dt
+    =
+    \int_c^x g(t)\,dt.
+\]
+Por tanto, para cada $x\in[a,b]$ existe
+\[
+    f(x)=\lim_{n\to\infty}f_n(x),
+\]
+y está dado por
+\[
+    f(x)
+    =
+    \alpha
+    +
+    \int_c^x g(t)\,dt.
+\]
+
+Como $g$ es continua, nuevamente por el Teorema Fundamental del Cálculo,
+$f$ es derivable y
+\[
+    f'(x)=g(x)
+    \qquad\text{para todo }x\in[a,b].
+\]
+Además, como $g$ es continua, $f$ es de clase $C^1$.
+
+Falta probar que la convergencia $f_n\to f$ es uniforme. Para todo
+$x\in[a,b]$,
+\[
+\begin{aligned}
+    |f_n(x)-f(x)|
+    &=
+    \left|
+    f_n(c)-\alpha
+    +
+    \int_c^x \bigl(f_n'(t)-g(t)\bigr)\,dt
+    \right|\\
+    &\leq
+    |f_n(c)-\alpha|
+    +
+    \left|
+    \int_c^x \bigl(f_n'(t)-g(t)\bigr)\,dt
+    \right|\\
+    &\leq
+    |f_n(c)-\alpha|
+    +
+    \int_a^b |f_n'(t)-g(t)|\,dt\\
+    &\leq
+    |f_n(c)-\alpha|
+    +
+    (b-a)\sup_{t\in[a,b]}|f_n'(t)-g(t)|.
+\end{aligned}
+\]
+El primer término tiende a $0$ porque $f_n(c)\to\alpha$. El segundo término
+tiende a $0$ porque $f_n'\to g$ uniformemente. Por tanto,
+\[
+    \sup_{x\in[a,b]}|f_n(x)-f(x)|\to 0.
+\]
+Así, $f_n\to f$ uniformemente.
+\end{proof}
+
+\begin{observacion}
+Este teorema dice que, bajo sus hipótesis,
+\[
+    \frac{d}{dx}\left(\lim_{n\to\infty}f_n(x)\right)
+    =
+    \lim_{n\to\infty}\frac{d}{dx}f_n(x).
+\]
+Es decir, permite intercambiar límite y derivada.
+\end{observacion}
+
+\begin{ejemplo}
+Sea
+\[
+    f_n(x)=\frac{\sen(nx)}{n}.
+\]
+Entonces
+\[
+    |f_n(x)|\leq \frac1n
+\]
+para todo $x\in\R$. Por tanto,
+\[
+    f_n\to 0
+\]
+uniformemente en $\R$.
+
+Sin embargo,
+\[
+    f_n'(x)=\cos(nx).
+\]
+La sucesión $\cos(nx)$ no converge puntualmente en general, y mucho menos
+uniformemente. Por tanto, aunque $f_n\to 0$ uniformemente, no podemos concluir
+que
+\[
+    f_n'\to 0.
+\]
+\end{ejemplo}
+%-----------------------------------------------------------
+\section{Series de funciones}
+%-----------------------------------------------------------
+
+Sea
+\[
+    (g_n)_{n\in\N},\qquad g_n:X\to\R,
+\]
+una sucesión de funciones. La serie de funciones
+\[
+    \sum_{n=1}^{\infty} g_n
+\]
+se estudia mediante sus sumas parciales
+\[
+    s_n(x)=g_1(x)+g_2(x)+\cdots+g_n(x).
+\]
+
+\begin{grisplano}
+\begin{definicion}[Convergencia puntual y uniforme de una serie]
+Decimos que la serie
+\[
+    \sum_{n=1}^{\infty}g_n
+\]
+converge puntualmente a $f:X\to\R$ si
+\[
+    s_n(x)\to f(x)
+    \qquad \text{para todo }x\in X.
+\]
+
+Decimos que converge uniformemente a $f$ en $X$ si
+\[
+    s_n\to f
+\]
+uniformemente en $X$.
+\end{definicion}
+\end{grisplano}
+
+Si la serie converge a $f$, definimos el resto
+\[
+    r_n(x)
+    =
+    \sum_{k=n+1}^{\infty}g_k(x).
+\]
+Como
+\[
+    r_n(x)=f(x)-s_n(x),
+\]
+tenemos la siguiente caracterización.
+
+\begin{grisplano}
+\begin{proposicion}[Convergencia uniforme mediante restos]
+La serie
+\[
+    \sum_{n=1}^{\infty}g_n
+\]
+converge uniformemente a $f$ en $X$ si y solo si
+\[
+    r_n\to 0
+\]
+uniformemente en $X$.
+\end{proposicion}
+\end{grisplano}
+
+\begin{proof}
+Como
+\[
+    r_n=f-s_n,
+\]
+tenemos
+\[
+    |r_n(x)|=|f(x)-s_n(x)|.
+\]
+Por tanto, pedir que $s_n\to f$ uniformemente es exactamente pedir que
+$r_n\to 0$ uniformemente.
+\end{proof}
+
+%-----------------------------------------------------------
+\section{Series de funciones: resultados básicos}
+%-----------------------------------------------------------
+
+Los resultados anteriores se aplican a series de funciones usando las sumas
+parciales
+\[
+    s_n=\sum_{k=1}^n f_k.
+\]
+
+\begin{grisplano}
+\begin{proposicion}[Continuidad de una serie uniforme]
+Si
+\[
+    \sum_{n=1}^\infty f_n
+\]
+converge uniformemente a $f$ en $X$ y cada $f_n$ es continua en un punto
+$a\in X$, entonces $f$ es continua en $a$.
+\end{proposicion}
+\end{grisplano}
+
+\begin{proof}
+Las sumas parciales
+\[
+    s_n=f_1+\cdots+f_n
+\]
+son continuas en $a$. Como
+\[
+    s_n\to f
+\]
+uniformemente, el límite $f$ es continuo en $a$.
+\end{proof}
+
+\begin{grisplano}
+\begin{proposicion}[Integración término a término]
+Sea
+\[
+    f_n:[a,b]\to\R
+\]
+una sucesión de funciones integrables. Si la serie
+\[
+    \sum_{n=1}^{\infty} f_n
+\]
+converge uniformemente a $f$ en $[a,b]$, entonces $f$ es integrable y
+\[
+    \int_a^b f(x)\,dx
+    =
+    \sum_{n=1}^{\infty}\int_a^b f_n(x)\,dx.
+\]
+\end{proposicion}
+\end{grisplano}
+
+\begin{proof}
+Sea
+\[
+    s_n=\sum_{k=1}^n f_k.
+\]
+Cada $s_n$ es integrable y
+\[
+    s_n\to f
+\]
+uniformemente. Por el teorema de paso al límite bajo el signo integral,
+\[
+    \int_a^b f(x)\,dx
+    =
+    \lim_{n\to\infty}\int_a^b s_n(x)\,dx.
+\]
+Pero
+\[
+    \int_a^b s_n(x)\,dx
+    =
+    \int_a^b \sum_{k=1}^n f_k(x)\,dx
+    =
+    \sum_{k=1}^n\int_a^b f_k(x)\,dx.
+\]
+Por tanto,
+\[
+    \int_a^b f(x)\,dx
+    =
+    \sum_{k=1}^{\infty}\int_a^b f_k(x)\,dx.
+\]
+\end{proof}
+
+\begin{grisplano}
+\begin{proposicion}[Derivación término a término para series]
+Sea
+\[
+    f_n:[a,b]\to\R
+\]
+una sucesión de funciones de clase $C^1$. Supongamos que:
+
+\begin{enumerate}
+    \item la serie numérica
+    \[
+        \sum_{n=1}^{\infty} f_n(c)
+    \]
+    converge para algún $c\in[a,b]$;
+
+    \item la serie de derivadas
+    \[
+        \sum_{n=1}^{\infty} f_n'
+    \]
+    converge uniformemente en $[a,b]$.
+\end{enumerate}
+
+Entonces
+\[
+    \sum_{n=1}^{\infty} f_n
+\]
+converge uniformemente a una función $f$ de clase $C^1$, y
+\[
+    f'
+    =
+    \sum_{n=1}^{\infty} f_n'.
+\]
+\end{proposicion}
+\end{grisplano}
+
+\begin{proof}
+Consideremos las sumas parciales
+\[
+    s_n=\sum_{k=1}^n f_k.
+\]
+Entonces
+\[
+    s_n'=\sum_{k=1}^n f_k'.
+\]
+Por hipótesis, $(s_n(c))$ converge, porque
+\[
+    s_n(c)=\sum_{k=1}^n f_k(c),
+\]
+y la serie $\sum f_k(c)$ converge. Además, $(s_n')$ converge uniformemente,
+porque la serie $\sum f_k'$ converge uniformemente.
+
+Aplicando el teorema de derivación término a término a la sucesión $(s_n)$,
+concluimos que $(s_n)$ converge uniformemente a una función $f$ de clase $C^1$
+y que
+\[
+    f'
+    =
+    \lim_{n\to\infty}s_n'
+    =
+    \sum_{k=1}^{\infty}f_k'.
+\]
+\end{proof}
+
+%-----------------------------------------------------------
+\section{Criterio de Weierstrass}
+%-----------------------------------------------------------
+
+\begin{grisplano}
+\begin{teorema}[Criterio de Weierstrass]
+Sea
+\[
+    f_n:X\to\R
+\]
+una sucesión de funciones. Supongamos que existe una serie numérica convergente
+\[
+    \sum_{n=1}^{\infty} a_n,
+    \qquad a_n\geq 0,
+\]
+tal que
+\[
+    |f_n(x)|\leq a_n
+    \qquad
+    \text{para todo }x\in X
+    \text{ y todo }n\in\N.
+\]
+Entonces las series
+\[
+    \sum_{n=1}^{\infty}|f_n|
+    \qquad\text{y}\qquad
+    \sum_{n=1}^{\infty}f_n
+\]
+convergen uniformemente en $X$.
+\end{teorema}
+\end{grisplano}
+
+\begin{idea}
+El criterio compara una serie de funciones con una serie numérica convergente.
+Si para todo $x$ los términos de la serie de funciones están dominados por los
+términos $a_n$, entonces los restos también quedan dominados:
+\[
+    \left|\sum_{k=n+1}^{\infty} f_k(x)\right|
+    \leq
+    \sum_{k=n+1}^{\infty} a_k.
+\]
+Como el resto numérico puede hacerse menor que $\varepsilon$, el resto funcional
+también, uniformemente en $x$.
+\end{idea}
+
+\begin{proof}
+Para cada $x\in X$, tenemos
+\[
+    |f_n(x)|\leq a_n.
+\]
+Como
+\[
+    \sum_{n=1}^{\infty}a_n
+\]
+converge, por el criterio de comparación, la serie numérica
+\[
+    \sum_{n=1}^{\infty}|f_n(x)|
+\]
+converge para cada $x\in X$. Por tanto, $\sum f_n(x)$ converge absolutamente
+para cada $x\in X$.
+
+Ahora probemos la convergencia uniforme. Sea $\varepsilon>0$. Como
+\[
+    \sum_{n=1}^{\infty}a_n
+\]
+converge, existe $n_0\in\N$ tal que
+\[
+    \sum_{k=n+1}^{\infty}a_k<\varepsilon
+    \qquad\text{para todo }n\geq n_0.
+\]
+Definimos el resto
+\[
+    r_n(x)=\sum_{k=n+1}^{\infty} f_k(x).
+\]
+Entonces, para todo $x\in X$ y todo $n\geq n_0$,
+\[
+\begin{aligned}
+    |r_n(x)|
+    &=
+    \left|
+    \sum_{k=n+1}^{\infty} f_k(x)
+    \right| \\
+    &\leq
+    \sum_{k=n+1}^{\infty}|f_k(x)| \\
+    &\leq
+    \sum_{k=n+1}^{\infty}a_k \\
+    &<\varepsilon.
+\end{aligned}
+\]
+Como esta estimación no depende de $x$, se tiene
+\[
+    r_n\to 0
+\]
+uniformemente en $X$. Luego
+\[
+    \sum_{n=1}^{\infty} f_n
+\]
+converge uniformemente.
+
+El mismo argumento aplicado a la serie de funciones no negativas
+\[
+    \sum_{n=1}^{\infty}|f_n|
+\]
+demuestra que esta también converge uniformemente.
+\end{proof}
+
+\begin{ejemplo}
+Consideremos la serie
+\[
+    \sum_{n=1}^{\infty}\frac{x^n}{n^2}
+\]
+en el intervalo $[-1,1]$. Para todo $x\in[-1,1]$,
+\[
+    \left|\frac{x^n}{n^2}\right|
+    \leq
+    \frac{1}{n^2}.
+\]
+Como
+\[
+    \sum_{n=1}^{\infty}\frac{1}{n^2}
+\]
+converge, por el criterio de Weierstrass la serie
+\[
+    \sum_{n=1}^{\infty}\frac{x^n}{n^2}
+\]
+converge uniformemente en $[-1,1]$.
+\end{ejemplo}
+
+\begin{observacion}
+El criterio de Weierstrass es uno de los instrumentos más importantes para
+trabajar con series de funciones. Su ventaja es que reduce un problema de
+convergencia uniforme a un problema de convergencia de series numéricas.
+\end{observacion}
+
+\end{document}

@@ -6,7 +6,7 @@ Este repositorio reúne mis apuntes personales de matemática, ejercicios desarr
 
 - [Estructuras Algebraicas](estructuras-algebraicas/)
 - [Análisis Real](analisis-real/)
-- Ecuaciones Diferenciales Ordinarias
+- [Introducción a las Ecuaciones Diferenciales Ordinarias](iedo/)
 - Topología
 - Geometría Diferencial
 - Recursos bibliográficos

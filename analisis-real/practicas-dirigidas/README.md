@@ -2,7 +2,7 @@
 
 En esta sección se reunirán las prácticas dirigidas del curso **Análisis Real**.
 
-## Organización sugerida
+## Las prácticas dirigidas durante el curso
 
 - PD 1
 - PD 2

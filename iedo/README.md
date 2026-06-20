@@ -25,7 +25,6 @@ En esta sección se reunirán apuntes, ejercicios, prácticas dirigidas, exámen
 - [Prácticas dirigidas](practicas-dirigidas/)
 - [Apuntes en LaTeX](apuntes-latex/)
 - [Solucionarios](solucionarios/)
-- [Materiales complementarios](materiales/)
 
 ## Estado
 

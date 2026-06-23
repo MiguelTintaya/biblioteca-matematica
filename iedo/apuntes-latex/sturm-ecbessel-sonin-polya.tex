@@ -1,0 +1,982 @@
+\documentclass[12pt,a4paper]{article}
+
+% Idioma y codificación
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish,es-nodecimaldot]{babel}
+
+% Márgenes
+\usepackage{geometry}
+\geometry{
+    left=2.5cm,
+    right=2.5cm,
+    top=2.5cm,
+    bottom=2.5cm
+}
+
+% Matemática
+\usepackage{amsmath, amssymb, amsthm, mathtools}
+
+% Mejor tipografía
+\usepackage{lmodern}
+\usepackage{microtype}
+
+% Enumeraciones
+\usepackage{enumitem}
+
+% Colores
+\usepackage{xcolor}
+
+% Hipervínculos
+\usepackage[hidelinks]{hyperref}
+
+% Encabezados
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{Teoremas de Sturm}
+\rhead{\thepage}
+
+% Espaciado
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+
+% Entornos de teoremas
+\theoremstyle{definition}
+\newtheorem{teorema}{Teorema}[section]
+\newtheorem{proposicion}[teorema]{Proposición}
+\newtheorem{lema}[teorema]{Lema}
+\newtheorem{corolario}[teorema]{Corolario}
+\newtheorem{definicion}[teorema]{Definición}
+\newtheorem{ejemplo}[teorema]{Ejemplo}
+\newtheorem{observacion}[teorema]{Observación}
+
+% Comandos útiles
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\dd}{\,\mathrm{d}}
+\newcommand{\W}{\mathcal{W}}
+
+% Título
+\title{\textbf{Teoremas de Sturm, ceros de la ecuación de Bessel y teorema de Sonin--Pólya}}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section{Teoremas de comparación y separación de Sturm}
+
+En esta sección estudiaremos el comportamiento de los ceros de las soluciones de ecuaciones diferenciales lineales homogéneas de segundo orden. La idea central es que, bajo ciertas hipótesis, los ceros de dos soluciones se ``intercalan'' o se pueden comparar.
+
+\subsection{Teorema de separación de Sturm}
+
+Consideremos la ecuación diferencial lineal homogénea de segundo orden
+\begin{equation}\label{eq:sturm-general}
+a_2(x)y''+a_1(x)y'+a_0(x)y=0,
+\end{equation}
+definida en un intervalo \(I\), donde \(a_2(x)\neq 0\) para todo \(x\in I\), y los coeficientes son continuos.
+
+\begin{teorema}[Teorema de separación de Sturm]
+Sean \(y_1\) y \(y_2\) dos soluciones linealmente independientes de \eqref{eq:sturm-general} en \(I\). Entonces los ceros de \(y_1\) y \(y_2\) se alternan en \(I\). Es decir, entre dos ceros consecutivos de \(y_1\) existe exactamente un cero de \(y_2\), y viceversa.
+\end{teorema}
+
+\begin{proof}
+Sean \(a,b\in I\), con \(a<b\), dos ceros consecutivos de \(y_1\). Es decir,
+\[
+y_1(a)=y_1(b)=0
+\]
+y
+\[
+y_1(x)\neq 0,\qquad x\in(a,b).
+\]
+
+Probaremos que existe un único \(c\in(a,b)\) tal que
+\[
+y_2(c)=0.
+\]
+
+Primero recordemos que los ceros de una solución no trivial de una ecuación lineal homogénea de segundo orden son simples. En efecto, si para algún \(x_0\in I\) se tuviera
+\[
+y(x_0)=0,\qquad y'(x_0)=0,
+\]
+entonces, por el teorema de existencia y unicidad para problemas de valor inicial, la solución sería idénticamente nula en \(I\). Por tanto, si \(y\) es no trivial y \(y(x_0)=0\), necesariamente
+\[
+y'(x_0)\neq 0.
+\]
+
+Como \(y_1(a)=0\) y \(y_1\) no se anula en \((a,b)\), entonces \(y_1\) tiene signo constante en \((a,b)\). Supongamos, por ejemplo, que
+\[
+y_1(x)>0,\qquad x\in(a,b).
+\]
+Entonces, por la forma en que la función sale del cero en \(a\) y vuelve a anularse en \(b\), se tiene
+\[
+y_1'(a)>0,\qquad y_1'(b)<0.
+\]
+El caso \(y_1(x)<0\) en \((a,b)\) es análogo.
+
+Consideremos ahora el Wronskiano
+\[
+W[y_1,y_2](x)=
+\begin{vmatrix}
+y_1(x) & y_2(x)\\
+y_1'(x) & y_2'(x)
+\end{vmatrix}
+=
+y_1(x)y_2'(x)-y_1'(x)y_2(x).
+\]
+
+Como \(y_1\) y \(y_2\) son linealmente independientes, el Wronskiano no se anula en ningún punto de \(I\). En efecto, por la fórmula de Abel, si escribimos la ecuación como
+\[
+y''+p(x)y'+q(x)y=0,
+\]
+entonces
+\[
+W'(x)=-p(x)W(x).
+\]
+De aquí se deduce que, si \(W(x_0)=0\) en algún punto \(x_0\), entonces \(W\equiv 0\) en \(I\), lo cual implicaría dependencia lineal. Por tanto,
+\[
+W[y_1,y_2](x)\neq 0,\qquad x\in I.
+\]
+Además, por continuidad, el Wronskiano mantiene signo constante en \(I\).
+
+Evaluemos el Wronskiano en los extremos \(a\) y \(b\). Como \(y_1(a)=y_1(b)=0\), se obtiene
+\[
+W(a)=-y_1'(a)y_2(a),
+\]
+y
+\[
+W(b)=-y_1'(b)y_2(b).
+\]
+
+Como \(W(a)\) y \(W(b)\) tienen el mismo signo, se cumple
+\[
+W(a)W(b)>0.
+\]
+Sustituyendo las expresiones anteriores,
+\[
+\bigl[-y_1'(a)y_2(a)\bigr]\bigl[-y_1'(b)y_2(b)\bigr]>0.
+\]
+Por tanto,
+\[
+y_1'(a)y_1'(b)y_2(a)y_2(b)>0.
+\]
+Pero ya sabemos que
+\[
+y_1'(a)>0,\qquad y_1'(b)<0.
+\]
+Luego
+\[
+y_1'(a)y_1'(b)<0.
+\]
+Entonces necesariamente
+\[
+y_2(a)y_2(b)<0.
+\]
+
+Por lo tanto, \(y_2(a)\) y \(y_2(b)\) tienen signos opuestos. Como \(y_2\) es continua en \([a,b]\), por el teorema del valor intermedio existe al menos un punto \(c\in(a,b)\) tal que
+\[
+y_2(c)=0.
+\]
+
+Esto prueba la existencia del cero de \(y_2\) entre \(a\) y \(b\).
+
+Ahora probemos la unicidad. Supongamos, por contradicción, que \(y_2\) tiene dos ceros distintos en \((a,b)\). Sean \(\alpha,\beta\in(a,b)\), con \(\alpha<\beta\), dos ceros consecutivos de \(y_2\). Aplicando el argumento anterior, pero intercambiando los papeles de \(y_1\) y \(y_2\), entre \(\alpha\) y \(\beta\) debería existir al menos un cero de \(y_1\). Pero esto contradice que \(a\) y \(b\) eran ceros consecutivos de \(y_1\).
+
+Por tanto, entre dos ceros consecutivos de \(y_1\) existe exactamente un cero de \(y_2\).
+
+Como el razonamiento es simétrico, también entre dos ceros consecutivos de \(y_2\) existe exactamente un cero de \(y_1\). Luego los ceros de ambas soluciones se alternan.
+\end{proof}
+
+\begin{observacion}
+El teorema no afirma que toda solución tenga infinitos ceros. Solo afirma que, cuando una solución tiene dos ceros consecutivos, entre ellos debe aparecer exactamente un cero de cualquier otra solución linealmente independiente.
+\end{observacion}
+
+\begin{ejemplo}
+Consideremos la ecuación
+\[
+y''-y=0.
+\]
+Dos soluciones linealmente independientes son
+\[
+y_1(x)=\sinh x,\qquad y_2(x)=\cosh x.
+\]
+La función \(\sinh x\) tiene un único cero, en \(x=0\), mientras que \(\cosh x\) no tiene ceros. Esto no contradice el teorema de separación, porque \(y_1\) no posee dos ceros consecutivos entre los cuales deba aparecer un cero de \(y_2\).
+\end{ejemplo}
+
+\subsection{Teorema de comparación de Sturm}
+
+Consideremos ahora dos ecuaciones diferenciales
+\begin{equation}\label{eq:comp1}
+y''+p_1(x)y=0
+\end{equation}
+y
+\begin{equation}\label{eq:comp2}
+y''+p_2(x)y=0,
+\end{equation}
+donde \(p_1,p_2\in C(I)\).
+
+\begin{teorema}[Teorema de comparación de Sturm]
+Supongamos que
+\[
+p_1(x)>p_2(x),\qquad x\in I.
+\]
+Sea \(y_1\) una solución no trivial de \eqref{eq:comp1} y sea \(y_2\) una solución no trivial de \eqref{eq:comp2}. Entonces, entre dos ceros consecutivos de \(y_2\), existe al menos un cero de \(y_1\).
+\end{teorema}
+
+\begin{proof}
+Sean \(a,b\in I\), con \(a<b\), dos ceros consecutivos de \(y_2\). Entonces
+\[
+y_2(a)=y_2(b)=0,
+\]
+y
+\[
+y_2(x)\neq 0,\qquad x\in(a,b).
+\]
+Multiplicando, si es necesario, a \(y_2\) por \(-1\), podemos suponer que
+\[
+y_2(x)>0,\qquad x\in(a,b).
+\]
+Entonces
+\[
+y_2'(a)>0,\qquad y_2'(b)<0.
+\]
+
+Queremos probar que \(y_1\) se anula en \((a,b)\). Supongamos, por contradicción, que
+\[
+y_1(x)\neq 0,\qquad x\in(a,b).
+\]
+Multiplicando por \(-1\), si es necesario, podemos suponer que
+\[
+y_1(x)>0,\qquad x\in(a,b).
+\]
+
+Consideremos el Wronskiano
+\[
+W(x)=
+\begin{vmatrix}
+y_1(x) & y_2(x)\\
+y_1'(x) & y_2'(x)
+\end{vmatrix}
+=
+y_1(x)y_2'(x)-y_1'(x)y_2(x).
+\]
+
+Derivando,
+\[
+W'(x)
+=
+y_1'(x)y_2'(x)+y_1(x)y_2''(x)
+-y_1''(x)y_2(x)-y_1'(x)y_2'(x).
+\]
+Por tanto,
+\[
+W'(x)=y_1(x)y_2''(x)-y_1''(x)y_2(x).
+\]
+Como
+\[
+y_1''=-p_1(x)y_1,
+\qquad
+y_2''=-p_2(x)y_2,
+\]
+se obtiene
+\[
+W'(x)
+=
+y_1(x)\bigl[-p_2(x)y_2(x)\bigr]
+-
+\bigl[-p_1(x)y_1(x)\bigr]y_2(x).
+\]
+Así,
+\[
+W'(x)=\bigl(p_1(x)-p_2(x)\bigr)y_1(x)y_2(x).
+\]
+Pero por hipótesis \(p_1(x)>p_2(x)\), y además \(y_1(x)>0\), \(y_2(x)>0\) en \((a,b)\). Luego
+\[
+W'(x)>0,\qquad x\in(a,b).
+\]
+Por tanto, \(W\) es estrictamente creciente en \((a,b)\).
+
+Evaluando en los extremos,
+\[
+W(a)=y_1(a)y_2'(a)>0,
+\]
+pues \(y_1(a)\neq 0\) y \(y_2'(a)>0\). Del mismo modo,
+\[
+W(b)=y_1(b)y_2'(b)<0,
+\]
+pues \(y_1(b)\neq 0\) y \(y_2'(b)<0\).
+
+Esto es imposible, porque una función estrictamente creciente no puede pasar de un valor positivo en \(a\) a un valor negativo en \(b\). La contradicción proviene de suponer que \(y_1\) no tenía ceros en \((a,b)\).
+
+Por lo tanto, existe al menos un punto \(c\in(a,b)\) tal que
+\[
+y_1(c)=0.
+\]
+\end{proof}
+
+\begin{observacion}
+El resultado expresa que una ecuación con coeficiente \(p_1\) mayor oscila más rápido que una ecuación con coeficiente \(p_2\) menor. Por eso, entre dos ceros consecutivos de la solución de la ecuación con menor coeficiente, aparece al menos un cero de la solución de la ecuación con mayor coeficiente.
+\end{observacion}
+
+\section{Ceros de las soluciones de la ecuación de Bessel}
+
+Consideremos la ecuación diferencial de Bessel de orden \(p\geq 0\):
+\begin{equation}\label{eq:bessel}
+x^2y''+xy'+(x^2-p^2)y=0,
+\qquad x>0.
+\end{equation}
+
+Queremos estudiar el comportamiento de los ceros de sus soluciones no triviales en el intervalo \((0,+\infty)\).
+
+\subsection{Transformación de la ecuación de Bessel}
+
+Introducimos el cambio
+\[
+y(x)=\frac{u(x)}{\sqrt{x}}.
+\]
+Entonces
+\[
+y'(x)=\frac{u'(x)}{\sqrt{x}}-\frac{u(x)}{2x^{3/2}}.
+\]
+Derivando nuevamente,
+\[
+y''(x)
+=
+\frac{u''(x)}{\sqrt{x}}
+-\frac{u'(x)}{x^{3/2}}
++\frac{3u(x)}{4x^{5/2}}.
+\]
+
+Sustituimos en la ecuación de Bessel:
+\[
+x^2y''+xy'+(x^2-p^2)y=0.
+\]
+Tenemos
+\[
+x^2y''
+=
+x^2\left(
+\frac{u''}{\sqrt{x}}
+-\frac{u'}{x^{3/2}}
++\frac{3u}{4x^{5/2}}
+\right)
+=
+x^{3/2}u'-x^{1/2}u'
++\frac{3}{4}x^{-1/2}u,
+\]
+corrigiendo cuidadosamente,
+\[
+x^2y''
+=
+x^{3/2}u''
+-x^{1/2}u'
++\frac{3}{4}x^{-1/2}u.
+\]
+Además,
+\[
+xy'
+=
+x\left(
+\frac{u'}{\sqrt{x}}-\frac{u}{2x^{3/2}}
+\right)
+=
+x^{1/2}u'-\frac{1}{2}x^{-1/2}u,
+\]
+y
+\[
+(x^2-p^2)y
+=
+(x^2-p^2)\frac{u}{\sqrt{x}}.
+\]
+
+Sumando,
+\[
+x^{3/2}u''
+-x^{1/2}u'
++\frac{3}{4}x^{-1/2}u
++
+x^{1/2}u'
+-\frac{1}{2}x^{-1/2}u
++
+(x^2-p^2)\frac{u}{\sqrt{x}}
+=0.
+\]
+Los términos con \(u'\) se cancelan. Así,
+\[
+x^{3/2}u''
++
+\frac{1}{4}x^{-1/2}u
++
+(x^2-p^2)x^{-1/2}u=0.
+\]
+Dividiendo entre \(x^{3/2}\), obtenemos
+\[
+u''
++
+\frac{1}{4x^2}u
++
+\left(1-\frac{p^2}{x^2}\right)u
+=0.
+\]
+Por tanto,
+\begin{equation}\label{eq:bessel-transformada}
+u''+
+\left(
+1+\frac{1-4p^2}{4x^2}
+\right)u=0.
+\end{equation}
+
+Así, la ecuación de Bessel se transforma en una ecuación de la forma
+\[
+u''+Q_p(x)u=0,
+\]
+donde
+\[
+Q_p(x)=1+\frac{1-4p^2}{4x^2}.
+\]
+
+Como
+\[
+y(x)=\frac{u(x)}{\sqrt{x}},
+\]
+y \(\sqrt{x}>0\) para \(x>0\), los ceros de \(y\) coinciden exactamente con los ceros de \(u\).
+
+\subsection{Caso \(0\leq p<\frac12\)}
+
+Si
+\[
+0\leq p<\frac12,
+\]
+entonces
+\[
+1-4p^2>0.
+\]
+Por tanto,
+\[
+Q_p(x)=1+\frac{1-4p^2}{4x^2}>1,
+\qquad x>0.
+\]
+
+Consideremos las ecuaciones
+\[
+u''+Q_p(x)u=0
+\]
+y
+\[
+v''+v=0.
+\]
+Como \(Q_p(x)>1\), por el teorema de comparación de Sturm, entre dos ceros consecutivos de cualquier solución no trivial de
+\[
+v''+v=0
+\]
+existe al menos un cero de cualquier solución no trivial de
+\[
+u''+Q_p(x)u=0.
+\]
+
+Las soluciones no triviales de
+\[
+v''+v=0
+\]
+son de la forma
+\[
+v(x)=c_1\cos x+c_2\sin x,
+\]
+y sus ceros consecutivos están separados por una distancia \(\pi\).
+
+Por tanto, en todo intervalo abierto de longitud \(\pi\) aparece al menos un cero de \(u\), y en consecuencia al menos un cero de \(y\).
+
+De aquí se deduce que la distancia entre dos ceros consecutivos de cualquier solución no trivial de la ecuación de Bessel de orden \(p\), con \(0\leq p<\frac12\), es menor que \(\pi\).
+
+\subsection{Caso \(p=\frac12\)}
+
+Si
+\[
+p=\frac12,
+\]
+entonces
+\[
+1-4p^2=1-4\left(\frac12\right)^2=0.
+\]
+Por tanto, la ecuación transformada \eqref{eq:bessel-transformada} queda
+\[
+u''+u=0.
+\]
+Así,
+\[
+u(x)=c_1\cos x+c_2\sin x.
+\]
+Luego
+\[
+y(x)=\frac{u(x)}{\sqrt{x}}
+=
+\frac{c_1\cos x+c_2\sin x}{\sqrt{x}}.
+\]
+
+Como \(\sqrt{x}>0\) para \(x>0\), los ceros de \(y\) coinciden con los ceros de
+\[
+c_1\cos x+c_2\sin x.
+\]
+Toda solución no trivial de
+\[
+u''+u=0
+\]
+tiene ceros separados exactamente por una distancia \(\pi\). En consecuencia, para \(p=\frac12\), la distancia entre dos ceros consecutivos de una solución no trivial de la ecuación de Bessel es exactamente \(\pi\).
+
+\subsection{Caso \(p>\frac12\)}
+
+Supongamos ahora que
+\[
+p>\frac12.
+\]
+Entonces
+\[
+1-4p^2<0.
+\]
+Por tanto,
+\[
+Q_p(x)=1+\frac{1-4p^2}{4x^2}<1,
+\qquad x>0.
+\]
+
+En este caso comparamos las ecuaciones
+\[
+u''+u=0
+\]
+y
+\[
+u''+Q_p(x)u=0.
+\]
+Como
+\[
+1>Q_p(x),
+\]
+por el teorema de comparación de Sturm, entre dos ceros consecutivos de una solución no trivial de
+\[
+u''+Q_p(x)u=0
+\]
+existe al menos un cero de una solución no trivial de
+\[
+v''+v=0.
+\]
+
+Recordemos que toda solución no trivial de
+\[
+v''+v=0
+\]
+tiene ceros separados por una distancia exactamente igual a \(\pi\).
+
+Sea \(u\) una solución no trivial de
+\[
+u''+Q_p(x)u=0.
+\]
+Sean \(\alpha<\beta\) dos ceros consecutivos de \(u\). Por el teorema de comparación, entre \(\alpha\) y \(\beta\) debe existir al menos un cero de alguna solución no trivial de
+\[
+v''+v=0.
+\]
+Como los ceros consecutivos de \(v\) están separados por \(\pi\), se concluye que el intervalo \((\alpha,\beta)\) debe tener longitud mayor que \(\pi\). Por tanto,
+\[
+\beta-\alpha>\pi.
+\]
+
+En consecuencia, para \(p>\frac12\), la distancia entre dos ceros consecutivos de una solución no trivial de la ecuación de Bessel es mayor que \(\pi\).
+
+\begin{observacion}
+Resumiendo, para la ecuación de Bessel
+\[
+x^2y''+xy'+(x^2-p^2)y=0,
+\qquad x>0,
+\]
+los ceros de sus soluciones no triviales satisfacen:
+\[
+\begin{cases}
+\text{distancia entre ceros consecutivos}<\pi, & 0\leq p<\frac12,\\[4pt]
+\text{distancia entre ceros consecutivos}=\pi, & p=\frac12,\\[4pt]
+\text{distancia entre ceros consecutivos}>\pi, & p>\frac12.
+\end{cases}
+\]
+\end{observacion}
+
+\section{Forma autoadjunta de una ecuación lineal de segundo orden}
+
+Consideremos la ecuación diferencial lineal homogénea de segundo orden
+\begin{equation}\label{eq:lineal-general}
+y''+a_1(x)y'+a_0(x)y=0,
+\end{equation}
+definida en un intervalo \(I\), donde \(a_0,a_1\in C(I)\).
+
+La idea es escribir esta ecuación en una forma equivalente que tenga la estructura
+\[
+\frac{d}{dx}\left(p(x)y'\right)+q(x)y=0.
+\]
+A esta forma se le llama \emph{forma autoadjunta}.
+
+Sea
+\[
+A_1(x)=\int a_1(x)\,dx
+\]
+una primitiva de \(a_1\), y definamos
+\[
+p(x)=e^{A_1(x)}.
+\]
+Como la exponencial siempre es positiva, se tiene
+\[
+p(x)>0,\qquad x\in I.
+\]
+Además,
+\[
+p'(x)=a_1(x)e^{A_1(x)}=a_1(x)p(x).
+\]
+
+Multiplicamos \eqref{eq:lineal-general} por \(p(x)\):
+\[
+p(x)y''+p(x)a_1(x)y'+p(x)a_0(x)y=0.
+\]
+Como
+\[
+p'(x)=a_1(x)p(x),
+\]
+tenemos
+\[
+p(x)y''+p'(x)y'=\frac{d}{dx}\left(p(x)y'\right).
+\]
+Por tanto, la ecuación se puede escribir como
+\[
+\frac{d}{dx}\left(p(x)y'\right)+p(x)a_0(x)y=0.
+\]
+Si definimos
+\[
+q(x)=p(x)a_0(x),
+\]
+obtenemos la forma autoadjunta:
+\begin{equation}\label{eq:autoadjunta}
+\frac{d}{dx}\left(p(x)y'\right)+q(x)y=0.
+\end{equation}
+
+\begin{observacion}
+Toda ecuación lineal homogénea normal de segundo orden
+\[
+y''+a_1(x)y'+a_0(x)y=0
+\]
+puede escribirse en forma autoadjunta multiplicando por el factor integrante
+\[
+p(x)=e^{\int a_1(x)\,dx}.
+\]
+\end{observacion}
+
+\subsection{Cambio de variable para reducir la forma autoadjunta}
+
+Consideremos la ecuación autoadjunta
+\[
+\frac{d}{dx}\left(p(x)y'\right)+q(x)y=0,
+\]
+con
+\[
+p(x)>0.
+\]
+
+Hacemos el cambio de variable
+\[
+t=\int \frac{1}{p(x)}\,dx.
+\]
+Entonces
+\[
+\frac{dt}{dx}=\frac{1}{p(x)}.
+\]
+Por la regla de la cadena,
+\[
+\frac{dy}{dx}
+=
+\frac{dy}{dt}\frac{dt}{dx}
+=
+\frac{1}{p(x)}\frac{dy}{dt}.
+\]
+De aquí se sigue que
+\[
+p(x)\frac{dy}{dx}
+=
+\frac{dy}{dt}.
+\]
+Por tanto,
+\[
+\frac{d}{dx}\left(p(x)\frac{dy}{dx}\right)
+=
+\frac{d}{dx}\left(\frac{dy}{dt}\right).
+\]
+Aplicando nuevamente la regla de la cadena,
+\[
+\frac{d}{dx}\left(\frac{dy}{dt}\right)
+=
+\frac{d}{dt}\left(\frac{dy}{dt}\right)\frac{dt}{dx}
+=
+\frac{1}{p(x)}\frac{d^2y}{dt^2}.
+\]
+
+Sustituyendo en la ecuación autoadjunta,
+\[
+\frac{1}{p(x)}\frac{d^2y}{dt^2}+q(x)y=0.
+\]
+Multiplicando por \(p(x)\), obtenemos
+\[
+\frac{d^2y}{dt^2}+p(x)q(x)y=0.
+\]
+
+Si escribimos \(x=x(t)\), entonces queda
+\begin{equation}\label{eq:reducida-autoadjunta}
+\frac{d^2y}{dt^2}+Q(t)y=0,
+\end{equation}
+donde
+\[
+Q(t)=p(x(t))q(x(t)).
+\]
+
+\begin{observacion}
+Este cambio transforma una ecuación autoadjunta en una ecuación sin término de primera derivada. Por eso el teorema de comparación de Sturm también se puede aplicar a ecuaciones escritas en forma autoadjunta.
+\end{observacion}
+
+\subsection{Comparación para ecuaciones en forma autoadjunta}
+
+Consideremos dos ecuaciones autoadjuntas
+\begin{equation}\label{eq:auto1}
+\frac{d}{dx}\left(p(x)y'\right)+q_1(x)y=0,
+\end{equation}
+y
+\begin{equation}\label{eq:auto2}
+\frac{d}{dx}\left(p(x)y'\right)+q_2(x)y=0,
+\end{equation}
+donde
+\[
+p(x)>0,\qquad x\in I.
+\]
+
+Usando el cambio
+\[
+t=\int \frac{1}{p(x)}\,dx,
+\]
+la primera ecuación se transforma en
+\[
+\frac{d^2y}{dt^2}+Q_1(t)y=0,
+\]
+donde
+\[
+Q_1(t)=p(x(t))q_1(x(t)),
+\]
+y la segunda se transforma en
+\[
+\frac{d^2y}{dt^2}+Q_2(t)y=0,
+\]
+donde
+\[
+Q_2(t)=p(x(t))q_2(x(t)).
+\]
+
+Como \(p(x)>0\), se tiene
+\[
+q_1(x)>q_2(x)
+\quad \Longleftrightarrow \quad
+p(x)q_1(x)>p(x)q_2(x).
+\]
+Por tanto,
+\[
+Q_1(t)>Q_2(t).
+\]
+
+Así, el teorema de comparación de Sturm se aplica también a las ecuaciones autoadjuntas. En particular, si
+\[
+q_1(x)>q_2(x),\qquad x\in I,
+\]
+entonces entre dos ceros consecutivos de una solución de la ecuación con \(q_2\) existe al menos un cero de una solución de la ecuación con \(q_1\).
+
+\section{Teorema de Sonin--Pólya}
+
+Ahora estudiaremos un resultado que permite describir cómo varían los valores absolutos de los máximos y mínimos relativos de una solución no trivial de una ecuación autoadjunta.
+
+\begin{teorema}[Sonin--Pólya]
+Sean \(p,q\in C^1(I)\) tales que
+\[
+p(x)>0,\qquad q(x)\neq 0,\qquad x\in I.
+\]
+Supongamos además que
+\[
+p(x)q(x)
+\]
+es monótona en \(I\).
+
+Sea \(y\) una solución no trivial de la ecuación
+\begin{equation}\label{eq:sonin-polya}
+\frac{d}{dx}\left(p(x)y'\right)+q(x)y=0.
+\end{equation}
+
+Entonces:
+
+\begin{enumerate}
+    \item Si \(p(x)q(x)\) es no creciente en \(I\), los valores absolutos de los máximos y mínimos relativos de \(y\) son no decrecientes cuando \(x\) aumenta.
+
+    \item Si \(p(x)q(x)\) es no decreciente en \(I\), los valores absolutos de los máximos y mínimos relativos de \(y\) son no crecientes cuando \(x\) aumenta.
+\end{enumerate}
+\end{teorema}
+
+\begin{proof}
+Sea \(y\) una solución no trivial de \eqref{eq:sonin-polya}. Definimos la función auxiliar
+\[
+F(x)
+=
+y(x)^2
++
+\frac{1}{p(x)q(x)}
+\bigl(p(x)y'(x)\bigr)^2.
+\]
+Esta función está bien definida porque por hipótesis
+\[
+p(x)>0
+\]
+y
+\[
+q(x)\neq 0.
+\]
+
+Derivamos \(F\). Primero,
+\[
+\frac{d}{dx}\bigl(y(x)^2\bigr)=2y(x)y'(x).
+\]
+Además,
+\[
+\frac{d}{dx}
+\left[
+\frac{(p(x)y'(x))^2}{p(x)q(x)}
+\right]
+=
+\frac{2(p y')(p y')'}{pq}
+-
+\frac{(p y')^2(pq)'}{(pq)^2}.
+\]
+Por tanto,
+\[
+F'(x)
+=
+2yy'
++
+\frac{2(p y')(p y')'}{pq}
+-
+\frac{(p y')^2(pq)'}{(pq)^2}.
+\]
+
+Como \(y\) satisface
+\[
+(p y')'+qy=0,
+\]
+se tiene
+\[
+(p y')'=-qy.
+\]
+Sustituyendo,
+\[
+F'(x)
+=
+2yy'
++
+\frac{2(p y')(-qy)}{pq}
+-
+\frac{(p y')^2(pq)'}{(pq)^2}.
+\]
+Pero
+\[
+\frac{2(p y')(-qy)}{pq}
+=
+-2yy'.
+\]
+Entonces los dos primeros términos se cancelan, y queda
+\[
+F'(x)
+=
+-
+\frac{(p(x)y'(x))^2(p(x)q(x))'}{(p(x)q(x))^2}.
+\]
+Es decir,
+\begin{equation}\label{eq:derivada-F}
+F'(x)
+=
+-
+\left(\frac{y'(x)}{q(x)}\right)^2
+(p(x)q(x))'.
+\end{equation}
+
+En efecto,
+\[
+\frac{(p y')^2}{(pq)^2}
+=
+\left(\frac{y'}{q}\right)^2.
+\]
+
+Ahora analizamos el signo de \(F'\).
+
+Si \(p(x)q(x)\) es no creciente, entonces
+\[
+(pq)'(x)\leq 0.
+\]
+Como
+\[
+\left(\frac{y'(x)}{q(x)}\right)^2\geq 0,
+\]
+se deduce de \eqref{eq:derivada-F} que
+\[
+F'(x)\geq 0.
+\]
+Por tanto, \(F\) es no decreciente en \(I\).
+
+Si \(p(x)q(x)\) es no decreciente, entonces
+\[
+(pq)'(x)\geq 0,
+\]
+y por \eqref{eq:derivada-F},
+\[
+F'(x)\leq 0.
+\]
+Por tanto, \(F\) es no creciente en \(I\).
+
+Veamos ahora cómo se relaciona \(F\) con los máximos y mínimos relativos de \(y\). Sea \(x_0\in I\) un punto donde \(y\) tiene un máximo o mínimo relativo. Como \(y\) es derivable, por el teorema de Fermat se cumple
+\[
+y'(x_0)=0.
+\]
+Entonces
+\[
+F(x_0)
+=
+y(x_0)^2.
+\]
+
+Por tanto, en los puntos críticos de \(y\), la función \(F\) mide exactamente el cuadrado del valor absoluto de \(y\).
+
+Si \(x_1<x_2<x_3<\cdots\) son puntos sucesivos donde \(y\) alcanza máximos o mínimos relativos, entonces:
+\[
+F(x_i)=y(x_i)^2.
+\]
+Si \(F\) es no decreciente, se obtiene
+\[
+y(x_1)^2\leq y(x_2)^2\leq y(x_3)^2\leq \cdots.
+\]
+Por lo tanto,
+\[
+|y(x_1)|\leq |y(x_2)|\leq |y(x_3)|\leq \cdots.
+\]
+Esto prueba que los valores absolutos de los máximos y mínimos relativos de \(y\) son no decrecientes.
+
+De manera análoga, si \(F\) es no creciente, entonces
+\[
+y(x_1)^2\geq y(x_2)^2\geq y(x_3)^2\geq \cdots,
+\]
+y por tanto
+\[
+|y(x_1)|\geq |y(x_2)|\geq |y(x_3)|\geq \cdots.
+\]
+
+Con esto queda demostrado el teorema.
+\end{proof}
+
+\begin{observacion}
+La función \(F\) introducida en la prueba se conoce como una función de energía. Su utilidad consiste en que, al derivarla y usar la ecuación diferencial, los términos principales se cancelan y queda una expresión cuyo signo depende únicamente de la monotonía de \(p(x)q(x)\).
+\end{observacion}
+
+\end{document}
